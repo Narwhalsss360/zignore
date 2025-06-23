@@ -14,14 +14,14 @@ const argsWithAllocator = std.process.argsWithAllocator;
 const Client = std.http.Client;
 const Status = std.http.Status;
 
-const stdout = std.io.getStdOut().writer();
-const stderr = std.io.getStdIn().writer();
-
 const HEADER_BUFFER_LEN = 8192;
 const BASE_URL = "https://raw.githubusercontent.com/github/gitignore/refs/heads/main/";
 
 pub fn main() !void {
-    var gpa = GPA(.{}) {};
+    const stdout = std.io.getStdOut().writer();
+    const stderr = std.io.getStdIn().writer();
+
+    var gpa = GPA(.{}){};
     defer if (gpa.deinit() == .leak) @panic("Memory leak detected.");
     const allocator = gpa.allocator();
 
@@ -84,4 +84,3 @@ fn makeOne(client: *Client, location: []const u8, text: *UTF8String) !void {
         return Error.IgnoreFileNotFound;
     }
 }
-
