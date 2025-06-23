@@ -53,7 +53,6 @@ pub fn main() !void {
             if (err != Error.IgnoreFileNotFound) {
                 return err;
             }
-            try stderr.print("Using {s} as full url...", .{arg.?});
             try makeOne(&client, arg.?, &text);
         };
         const endl = if (text.items[text.items.len - 1] == '\n') "" else "\n";
