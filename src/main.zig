@@ -30,6 +30,11 @@ pub fn main() !void {
     _ = args.next();
     var arg = args.next();
 
+    if (arg == null) {
+        try stderr.print("No input.", .{});
+        return;
+    }
+
     var client = Client { .allocator = allocator };
     defer client.deinit();
 
